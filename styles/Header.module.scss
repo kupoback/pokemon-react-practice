@@ -1,0 +1,19 @@
+@import "common/common";
+
+.header {
+	padding: 0 0 20px 0;
+	z-index: 9999;
+
+	&__logo {
+		display: inline-block;
+		margin-right: 10px;
+		vertical-align: -4px;
+	}
+
+	&__title {
+		display: inline-block;
+		@include font-bold;
+		@include font-size(24);
+		margin: 10px 0 0 0;
+	}
+}

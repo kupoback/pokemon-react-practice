@@ -1,0 +1,92 @@
+@import "common/common";
+
+:root {
+	--max-width: 600px;
+	--nav-height: 120px;
+	--footer-height: 60px;
+
+	--white: #fff;
+	--black: #212121;
+	--gray: #f7f7f7;
+	--blue: #6493eb;
+	--border-gray: #e0e0e0;
+}
+
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	@include font-reg;
+	@include font-size(16);
+	background-color: $white;
+}
+
+.wrapper {
+	width: calc(100% - 60px);
+	max-width: 600px;
+	min-height: calc(100vh - 60px);
+	margin: 15px auto;
+	padding: 15px;
+	background-color: $background-gray;
+	border-radius: 10px;
+
+	@include tablet {
+		width: calc(100% - 60px);
+	}
+
+	@include laptop {
+		min-height: auto;
+	}
+}
+
+.btn {
+	@include button-reset;
+	height: 30px;
+	@include font-size(14);
+	line-height: 30px;
+	letter-spacing: 0.5px;
+	color: $white;
+	padding: 0 10px;
+	background-color: $medium-gray;
+	border-radius: 10px;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.isfavorite {
+	fill: $medium-gray;
+}
+
+.notfavorite {
+	fill: $light-gray;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
