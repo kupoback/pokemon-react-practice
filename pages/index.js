@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import apiCall from "../apiRequest";
 
 import Head from "next/head";
 
@@ -8,8 +9,8 @@ import styles from "../styles/Home.module.scss";
 
 import pokemon from "../samples/pokemon";
 
-export default function Home() {
-	const [pokemons, setPokemons] = useState(pokemon.results);
+export default function Home({data}) {
+	const [pokemons, setPokemons] = useState(data);
 	const [shuffle, setShuffle] = useState(false);
 
 	const shufflePokemon = (e) => {
@@ -21,7 +22,7 @@ export default function Home() {
 		setPokemons(pokemons.sort(() => Math.random() - 0.5));
 		setShuffle(false);
 	}, [shuffle]);
-		
+
 	return (
         <main className={styles.homepage}>
             <Head>
@@ -33,9 +34,9 @@ export default function Home() {
             </Head>
 			<div className="container">
 				<div className={styles.homepage__cards}>
-					{pokemons.slice(0, 6).map((character, index) => {
+					{pokemons.slice(0, 6).map((pokemon, index) => {
 						return (
-							<Card key={index} pokemon={character} />
+							<Card key={index} pokemon={pokemon.pokemon_species} pokemonId={pokemon.entry_number} />
 						)
 					})}
 				</div>
@@ -43,4 +44,22 @@ export default function Home() {
             </div>
         </main>
     );
+}
+
+
+export async function getStaticProps() {
+	const resp = await apiCall('pokedex', 1);
+	const data = await resp.data;
+	
+	if (!data) {
+		return {
+			notFound: true,
+		}
+	}
+	
+	return {
+		props: {
+			data: data.pokemon_entries,
+		}
+	}
 }
