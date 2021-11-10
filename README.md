@@ -51,8 +51,6 @@ There are also wrapper libraries out there which could expedite your work.  You'
 
 # Starting Code
 
-[Atlassian](https://bitbucket.org/clique_studios/october-react-workshop-frontend/src/main/)
-
 Please use this repo as a starter for this project, and commit to a branch using your name.
 
 # Goals
