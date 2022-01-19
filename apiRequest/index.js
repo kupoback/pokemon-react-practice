@@ -1,1 +1,6 @@
-export { default } from "./apiCall";
+export { 
+    apiCall,
+    getPokemonsList,
+    getCharacteristicById,
+    standaloneCall,
+} from "./apiCall";

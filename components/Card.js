@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import apiCall from "../apiRequest";
+import {apiCall} from "../apiRequest";
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,8 +13,8 @@ const Card = ({ pokemon, pokemonId }) => {
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		setLoading(true);
-		apiCall('pokemon', pokemonId)
-			.then(({data}) => setPokemonSprite(data.sprites))
+		apiCall([`pokemon/${pokemonId}`])
+			.then(resp => resp.length && setPokemonSprite(resp[0].sprites))
 			.finally(() => setLoading(false));
 	}, [pokemonId]);
 

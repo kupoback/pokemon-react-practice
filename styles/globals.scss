@@ -50,6 +50,10 @@ body {
 	}
 }
 
+.container {
+	position: relative;
+}
+
 .btn {
 	@include button-reset;
 	height: 30px;
