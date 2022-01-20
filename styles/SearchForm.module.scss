@@ -3,6 +3,7 @@
 .search {
 	&__form {
 		display: flex;
+		flex-flow: row wrap;
 		justify-content: space-between;
 		align-items: center;
 		margin: 10px 0 0 0;
@@ -35,6 +36,7 @@
 }
 
 .fieldset {
+	flex: 0 0 100%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -42,4 +44,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	ul {
+		list-style: none;
+		margin:0;
+		padding: 0.5rem;
+		width: 100%;
+	}
 }

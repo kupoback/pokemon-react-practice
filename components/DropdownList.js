@@ -1,11 +1,24 @@
+import Link from "next/link";
 import {capFirstLetter, removeDashes} from "../util"
+
+import styles from "../styles/SearchForm.module.scss";
 
 const DropdownList = ({items}) => {
     const pokemon = items.sort((a, b) => a.localeCompare(b));
     return (
-        <ul>
-            {pokemon.map((pokemon, index) => <li key={index}>{capFirstLetter(removeDashes(pokemon))}</li>)}
-        </ul>
+        <fieldset className={styles.fieldset}>
+            <ul>
+                {pokemon.map((pokemon, index) => {
+                    return (
+                        <li key={index}>
+                            <Link href={`/pokemon/${pokemon}`}>
+                                {capFirstLetter(removeDashes(pokemon))}
+                            </Link>
+                        </li>
+                    )
+                })}
+            </ul>
+        </fieldset>
     )
 }
 

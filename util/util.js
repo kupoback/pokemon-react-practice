@@ -13,3 +13,7 @@ export function capFirstLetter(string) {
 export function removeDashes(string) {
 	return string.replace(/-/g, ' ');
 }
+
+export function cleanDescription(string) {
+	return string.replace(/(\r\n|\n|\r|\f)/gm, " ");
+}

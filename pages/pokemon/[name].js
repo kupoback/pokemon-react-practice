@@ -9,25 +9,26 @@ import Stat from "../../components/Stat";
 
 import styles from "../../styles/Pokemon.module.scss";
 
-import {capFirstLetter,removeDashes} from "../../util";
+import {capFirstLetter,removeDashes, cleanDescription} from "../../util";
 
-const Pokemon = ({query, pokemon}) => {
+const Pokemon = ({query}) => {
 	const router = useRouter();
 	const { name } = router.query;
-	const [data, setData] = useState(pokemon);
+
+	console.log(query);
 
 	const {
 		description,
 		height,
 		sprites,
-		// stats,
+	//  stats,
 		weight,
 	} = data;
 
 	const abilities = data.abilities.map(({ability}) => capFirstLetter(removeDashes(ability.name)));
 
 	const stats = data.stats.map(({stat, base_stat}) => {
-		// Special instance Switch/case for changing the stat name
+	// Special instance Switch/case for changing the stat name
 
 		let name = stat.name;
 		console.log(name);
@@ -62,6 +63,7 @@ const Pokemon = ({query, pokemon}) => {
 
 	const types = data.types.map(({type}) => capFirstLetter(type.name));
 
+	// return (<h1>hi</h1>)
 	return (
 		<div className={styles.pokemon}>
 			<span className={styles.pokemon__favorite}><Favorite /></span>
@@ -122,7 +124,7 @@ Pokemon.getInitialProps = async ({query}) => {
 		const descript = await standaloneCall(data.species.url)
 			.then(({flavor_text_entries}) => {
 				const flavorText = flavor_text_entries[0].flavor_text;
-				return flavorText.replace(/(\r\n|\n|\r|\f)/gm, " ");
+				return cleanDescription(flavorText);
 			})
 			.catch(err => console.error("Unable to get description: ", err));
 		data.description = descript;
@@ -139,6 +141,6 @@ Pokemon.getInitialProps = async ({query}) => {
 	
 	return {
 		query,
-		pokemon: data,
+		data,
 	}
 }

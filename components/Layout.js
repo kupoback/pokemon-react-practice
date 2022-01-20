@@ -1,17 +1,9 @@
-import { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
 import Header from "./Header";
 
-const Layout = ({children, data}) => {
-    const [pokemon, setPokemon] = useState(data);
-
-    useEffect(() => {
-        setPokemon(pokemon);
-    })
-
+const Layout = ({children}) => {
     return (
         <div className="wrapper">
-            <Header pokemon={pokemon} />
+            <Header />
             {children}
         </div>
     );

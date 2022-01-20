@@ -5,10 +5,7 @@ import SearchForm from "./SearchForm";
 
 import styles from "../styles/Header.module.scss";
 
-import {getPokemonNames} from "../util"
-
-const Header = ({pokemon}) => {
-
+const Header = () => {
     return (
         <header className={styles.header}>
 			<div className="container">
@@ -20,7 +17,7 @@ const Header = ({pokemon}) => {
 						Pokédex
 					</a>
 				</Link>
-				<SearchForm pokemon={getPokemonNames(pokemon)} />
+				<SearchForm />
 			</div>
         </header>
     );
