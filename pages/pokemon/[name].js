@@ -9,16 +9,7 @@ import Stat from "../../components/Stat";
 
 import styles from "../../styles/Pokemon.module.scss";
 
-const capFirstLetter = (string) => {
-	return string
-		.split(' ')
-    	.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-    	.join(' ');
-}
-
-const removeDashes = (string) => {
-	return string.replace(/-/g, ' ');
-}
+import {capFirstLetter,removeDashes} from "../../util";
 
 const Pokemon = ({query, pokemon}) => {
 	const router = useRouter();

@@ -8,9 +8,12 @@ import Favorite from "./Favorite";
 
 import styles from "../styles/Card.module.scss";
 
+import {capFirstLetter} from "../util";
+
 const Card = ({ pokemon, pokemonId }) => {
 	const [pokemonSprite, setPokemonSprite] = useState([]);
 	const [loading, setLoading] = useState(true);
+
 	useEffect(() => {
 		setLoading(true);
 		apiCall([`pokemon/${pokemonId}`])
@@ -27,7 +30,7 @@ const Card = ({ pokemon, pokemonId }) => {
 			</div>
 			<div className={styles.card__name}>
 				<Link href={`/pokemon/${pokemon.name}`}>
-					<a><h2>{pokemon.name}</h2></a>
+					<a><h2>{capFirstLetter(pokemon.name)}</h2></a>
 				</Link>
 			</div>	
 		</div>
