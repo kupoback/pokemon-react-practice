@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import {apiCall} from "../apiRequest";
 
 import Head from "next/head";
 import Card from "../components/Card";
@@ -21,8 +20,6 @@ export default function Home({pokemon}) {
 		setPokemonData(pokemon.slice(0, 6));
 		setShuffle(false);
 	}, [shuffle]);
-
-	// return (<h1>Test</h1>);
 
 	return (
         <main className={styles.homepage}>
@@ -49,24 +46,3 @@ export default function Home({pokemon}) {
         </main>
     );
 }
-
-
-// export async function getStaticProps() {
-// 	const data = await apiCall(['pokedex/1'])
-// 	.then(response => {
-// 		return response.length && response[0];
-// 	})
-// 	.catch(err => console.error("There was an error:", err));
-	
-// 	if (!data) {
-// 		return {
-// 			notFound: true,
-// 		}
-// 	}
-	
-// 	return {
-// 		props: {
-// 			data: data.pokemon_entries,
-// 		}
-// 	}
-// }

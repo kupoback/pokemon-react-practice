@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
     });
 
     return (
-        <Layout pokemon={pageProps.pokemon}>
+        <Layout pokemon={pokemon}>
             <Component {...pageProps} />
         </Layout>
     );
