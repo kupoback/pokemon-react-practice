@@ -22,6 +22,8 @@ export default function Home({data}) {
 		setShuffle(false);
 	}, [shuffle]);
 
+	// return (<h1>Test</h1>);
+
 	return (
         <main className={styles.homepage}>
             <Head>
@@ -49,22 +51,22 @@ export default function Home({data}) {
 }
 
 
-export async function getStaticProps() {
-	const data = await apiCall(['pokedex/1'])
-	.then(response => {
-		return response.length && response[0];
-	})
-	.catch(err => console.error("There was an error:", err));
+// export async function getStaticProps() {
+// 	const data = await apiCall(['pokedex/1'])
+// 	.then(response => {
+// 		return response.length && response[0];
+// 	})
+// 	.catch(err => console.error("There was an error:", err));
 	
-	if (!data) {
-		return {
-			notFound: true,
-		}
-	}
+// 	if (!data) {
+// 		return {
+// 			notFound: true,
+// 		}
+// 	}
 	
-	return {
-		props: {
-			data: data.pokemon_entries,
-		}
-	}
-}
+// 	return {
+// 		props: {
+// 			data: data.pokemon_entries,
+// 		}
+// 	}
+// }

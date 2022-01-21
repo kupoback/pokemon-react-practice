@@ -1,9 +1,14 @@
 import Header from "./Header";
 
-const Layout = ({children}) => {
+import {removeDashes} from "../util";
+
+const Layout = ({children, pokemon}) => {
+
+    const pokemonNames = pokemon && pokemon.map(({pokemon_species}) => removeDashes(pokemon_species.name));
+
     return (
         <div className="wrapper">
-            <Header />
+            <Header pokemonNames={pokemonNames} />
             {children}
         </div>
     );

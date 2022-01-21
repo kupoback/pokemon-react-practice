@@ -6,7 +6,7 @@ import styles from "../styles/SearchForm.module.scss";
 const DropdownList = ({items}) => {
     const pokemon = items.sort((a, b) => a.localeCompare(b));
     return (
-        <fieldset className={styles.fieldset}>
+        <fieldset className={`${styles.fieldset} dropdown-list`}>
             <ul>
                 {pokemon.map((pokemon, index) => {
                     return (
