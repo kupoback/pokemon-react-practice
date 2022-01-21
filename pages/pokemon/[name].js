@@ -114,7 +114,7 @@ const Pokemon = ({ query, pokemonData }) => {
 		legend: {
 		  display: false,
 		},
-		},
+	},
 	scales: {
         r: {
 			suggestedMax: Math.max.apply(Math, statValues) + 5,
