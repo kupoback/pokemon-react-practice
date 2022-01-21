@@ -3,7 +3,7 @@
  */
 import { useRouter } from "next/router";
 import { apiCall, standaloneCall } from "../../apiRequest";
-import { capFirstLetter, removeDashes, cleanDescription } from "../../util";
+import { cleanNames,cleanDescription } from "../../util";
 
 /**
  * Next Components
@@ -27,7 +27,7 @@ import WeightIcon from "../../components/svg/WeightIcon";
  */
 import styles from "../../styles/Pokemon.module.scss";
 
-const Pokemon = ({ query, pokemon }) => {
+const Pokemon = ({ query, pokemonData }) => {
   const router = useRouter();
   const { name } = router.query;
 
@@ -37,12 +37,12 @@ const Pokemon = ({ query, pokemon }) => {
   	sprites,
   //  stats,
   	weight,
-  } = pokemon;
+  } = pokemonData;
 
-  const abilities = pokemon.abilities.map(({ability}) => capFirstLetter(removeDashes(ability.name)));
+  const abilities = pokemonData.abilities.map(({ability}) => cleanNames(ability.name));
 
   // Special instance Switch/case for changing the stat name
-  const stats = pokemon.stats.map(({stat, base_stat}) => {
+  const stats = pokemonData.stats.map(({stat, base_stat}) => {
   	let name = stat.name;
   	switch (name) {
   		case "attack":
@@ -73,7 +73,7 @@ const Pokemon = ({ query, pokemon }) => {
   	}
   })
 
-  const types = pokemon.types.map(({type}) => capFirstLetter(type.name));
+  const types = pokemonData.types.map(({type}) => cleanNames(type.name));
 
   return (
   	<div className={styles.pokemon}>
@@ -121,7 +121,7 @@ export default Pokemon;
 Pokemon.getInitialProps = async ({ query }) => {
   const { name } = query;
 
-  const pokemon = await apiCall([`pokemon/${name}`])
+  const pokemonData = await apiCall([`pokemon/${name}`])
     .then((response) => {
       return response.length && response[0];
     })
@@ -140,7 +140,7 @@ Pokemon.getInitialProps = async ({ query }) => {
     })
     .catch((err) => console.error("There was an error:", err));
 
-  if (!pokemon) {
+  if (!pokemonData) {
   	return {
   		notFound: true,
   	}
@@ -148,6 +148,6 @@ Pokemon.getInitialProps = async ({ query }) => {
 
   return {
     query,
-    pokemon,
+    pokemonData,
   };
 };

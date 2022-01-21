@@ -1,5 +1,6 @@
 export {
     capFirstLetter,
+    cleanNames,
     cleanDescription,
     getPokemonNames,
     removeDashes,

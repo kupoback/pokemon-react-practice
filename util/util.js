@@ -14,6 +14,10 @@ export function removeDashes(string) {
 	return string.replace(/-/g, ' ');
 }
 
+export function cleanNames(string) {
+	return capFirstLetter(removeDashes(string));
+}
+
 export function cleanDescription(string) {
 	return string.replace(/(\r\n|\n|\r|\f)/gm, " ");
 }

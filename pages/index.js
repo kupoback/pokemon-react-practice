@@ -6,19 +6,19 @@ import Card from "../components/Card";
 
 import styles from "../styles/Home.module.scss";
 
-export default function Home({data}) {
-	const [pokemon, setPokemon] = useState(null);
-	const [shufflePokemon, setShufflePokemon] = useState(data);
+export default function Home({pokemon}) {
+	const [pokemonData, setPokemonData] = useState(null);
+	const [shufflePokemon, setShufflePokemon] = useState(pokemon);
 	const [shuffle, setShuffle] = useState(false);
 
 	const randomPokemon = (e) => {
 		e.preventDefault();
-		setShufflePokemon(data.sort(() => Math.random() - 0.5).slice(0,6));
+		setShufflePokemon(shufflePokemon.sort(() => Math.random() - 0.5).slice(0,6));
 		setShuffle(true);
 	}	
 
 	useEffect(() => {
-		setPokemon(data.slice(0, 6));
+		setPokemonData(pokemon.slice(0, 6));
 		setShuffle(false);
 	}, [shuffle]);
 
@@ -33,12 +33,12 @@ export default function Home({data}) {
             </Head>
 			<div className="container">
 				<div className={styles.homepage__cards}>
-					{(pokemon && !shuffle) && pokemon.slice(0, 6).map((pokemon, index) => {
+					{(pokemonData && !shuffle) && pokemonData.slice(0, 6).map((pokemon, index) => {
 						return (
 							<Card key={index} pokemon={pokemon.pokemon_species} pokemonId={pokemon.entry_number} />
 						)
 					})}
-					{shuffle && pokemon.slice(0, 6).map((pokemon, index) => {
+					{shuffle && shufflePokemon.slice(0, 6).map((pokemon, index) => {
 						return (
 							<Card key={index} pokemon={pokemon.pokemon_species} pokemonId={pokemon.entry_number} />
 						)
