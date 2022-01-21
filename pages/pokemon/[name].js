@@ -4,6 +4,18 @@
 import { useRouter } from "next/router";
 import { apiCall, standaloneCall } from "../../apiRequest";
 import { cleanNames,cleanDescription } from "../../util";
+import {
+	Chart as ChartJS,
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend,
+	registerables,
+  } from 'chart.js';
+  import { Radar } from 'react-chartjs-2';
+
 
 /**
  * Next Components
@@ -26,6 +38,15 @@ import WeightIcon from "../../components/svg/WeightIcon";
  * Styles
  */
 import styles from "../../styles/Pokemon.module.scss";
+
+ChartJS.register(
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend
+  );
 
 const Pokemon = ({ query, pokemonData }) => {
   const router = useRouter();
@@ -73,6 +94,35 @@ const Pokemon = ({ query, pokemonData }) => {
   	}
   })
 
+  const statValues = stats.map(({value}) => parseInt(value));
+
+  const graphData = {
+	  labels: stats.map(({name}) => name),
+	  datasets: [
+		  {
+			  label: "Base Stats",
+			  data: statValues,
+			  backgroundColor: 'rgba(52, 152, 219, 0.5)',
+			  borderColor: 'rgba(41, 128, 185, 0.8)',
+			  borderWidth: 1,
+		  }
+	  ]
+  }
+
+  const graphOptions = {
+	plugins: {
+		legend: {
+		  display: false,
+		},
+		},
+	scales: {
+        r: {
+			suggestedMax: Math.max.apply(Math, statValues) + 5,
+            suggestedMin: Math.min.apply(Math, statValues) - 5,
+        }
+    }
+  }
+
   const types = pokemonData.types.map(({type}) => cleanNames(type.name));
 
   return (
@@ -110,7 +160,8 @@ const Pokemon = ({ query, pokemonData }) => {
   			</div>
   			<p className={styles.desc}>{description}</p>
   			<h2>Base Stats</h2>
-  			{stats.length && stats.map(({name, value}, index) => <Stat key={index} statName={name} statValue={value} />)}
+  			{/* {stats.length && stats.map(({name, value}, index) => <Stat key={index} statName={name} statValue={value} />)} */}
+			  <Radar data={graphData} options={graphOptions} />
   		</div>
   	</div>
   );
