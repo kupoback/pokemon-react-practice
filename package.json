@@ -1,7 +1,8 @@
 {
-  "name": "2021-october",
+  "name": "pokemon-react-practice",
   "version": "0.1.0",
   "private": true,
+  "description": "A React project practicing API consumption and playing with NextJS",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
