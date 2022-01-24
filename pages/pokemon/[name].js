@@ -82,36 +82,11 @@ const Pokemon = ({ query, pokemonData }) => {
     const abilities = pokemonData.abilities.map(({ ability }) => cleanNames(ability.name));
 
     // Special instance Switch/case for changing the stat name
-    const stats = pokemonData.stats.map(({ stat, base_stat }) => {
-        let name = stat.name;
-        switch (name) {
-            case "attack":
-                name = "atk";
-                break;
-            case "defense":
-                name = "def";
-                break;
-            case "special-attack":
-                name = "satk";
-                break;
-            case (name = "special-defense"):
-                name = "sdef";
-                break;
-            case (name = "speed"):
-                name = "spd";
-                break;
-            // Not sure why i need to do this, but it keeps defaulting to speed
-            // when I use default:
-            case (name = "hp"):
-                name = name;
-                break;
-        }
-
-        return {
-            name: name.toUpperCase(),
+    const stats = pokemonData.stats.map(({ stat, base_stat }) => ({
+            name: cleanNames(stat.name),
             value: base_stat,
-        };
-    });
+        })
+    );
 
     const statValues = stats.map(({ value }) => parseInt(value));
 
@@ -230,7 +205,6 @@ Pokemon.getInitialProps = async ({ query }) => {
             // Add the description of the pokemon to the object
             const descriptArr = await standaloneCall(data.species.url)
                 .then(({ flavor_text_entries }) => {
-                    console.log(flavor_text_entries);
                     const englishText = flavor_text_entries
                         .filter(({language}) => language.name === 'en')
                         .map(({flavor_text, version}) => ({
