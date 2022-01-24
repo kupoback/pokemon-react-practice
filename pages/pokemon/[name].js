@@ -44,10 +44,9 @@ const Pokemon = ({ query, pokemonData }) => {
     const { name } = router.query;
 
     const {
-        description,
+        descriptionArray,
         height,
         sprites,
-        //  stats,
         weight,
     } = pokemonData;
 
@@ -173,7 +172,15 @@ const Pokemon = ({ query, pokemonData }) => {
                         {abilities.length && abilities.map((ability, index) => <p key={index}>{ability}</p>)}
                     </div>
                 </div>
-                <p className={styles.desc}>{description}</p>
+                {/* // @TODO Convert to an accordion  */}
+                {descriptionArray.map(({description, version}) => {
+                    return (
+                        <div className={styles.descContainer}>
+                            <h3 className={typeTextColors}>{version}</h3>
+                            <p className={styles.desc}>{description}</p>
+                        </div>
+                    )
+                })}
                 <h2 className={typeTextColors}>Base Stats</h2>
                 <Radar data={graphData} options={graphOptions} />
             </div>
@@ -192,14 +199,21 @@ Pokemon.getInitialProps = async ({ query }) => {
         })
         .then(async (data) => {
             // Add the description of the pokemon to the object
-            const descript = await standaloneCall(data.species.url)
+            const descriptArr = await standaloneCall(data.species.url)
                 .then(({ flavor_text_entries }) => {
-                    const flavorText = flavor_text_entries[0].flavor_text;
-                    return flavorText && cleanDescription(flavorText);
+                    console.log(flavor_text_entries);
+                    const englishText = flavor_text_entries
+                        .filter(({language}) => language.name === 'en')
+                        .map(({flavor_text, version}) => ({
+                            description: cleanDescription(flavor_text),
+                            version: cleanNames(version.name)
+                        }))
+                    return englishText;
                 })
                 .catch((err) => console.error("Unable to get description: ", err));
 
-            data.description = descript;
+            // data.description = descript;
+            data.descriptionArray = descriptArr;
 
             return data;
         })
@@ -217,28 +231,28 @@ Pokemon.getInitialProps = async ({ query }) => {
     };
 };
 
-const typeColors = {
-    rock: "b69e31",
-    ghost: "70559b",
-    steel: "b7b9d0",
-    water: "6493eb",
-    grass: "74cb48",
-    psychic: "fb5584",
-    ice: "9ad6df",
-    dark: "75574c",
-    fairy: "e69eac",
-    normal: "aaa67f",
-    fighting: "c12239",
-    flying: "a891ec",
-    poison: "a43e9e",
-    ground: "dec16b",
-    bug: "a7b723",
-    fire: "f57d31",
-    electric: "f9cf30",
-    dragon: "7037ff",
-};
-
+// Mapping used for Graph Data
 const hexToRgb = (color, alpha) => {
+    const typeColors = {
+        rock: "b69e31",
+        ghost: "70559b",
+        steel: "b7b9d0",
+        water: "6493eb",
+        grass: "74cb48",
+        psychic: "fb5584",
+        ice: "9ad6df",
+        dark: "75574c",
+        fairy: "e69eac",
+        normal: "aaa67f",
+        fighting: "c12239",
+        flying: "a891ec",
+        poison: "a43e9e",
+        ground: "dec16b",
+        bug: "a7b723",
+        fire: "f57d31",
+        electric: "f9cf30",
+        dragon: "7037ff",
+    };
 	const hexKey = Object.keys(typeColors).find(key => key === color);
 	const hexValue = typeColors[hexKey];
 	const [r, g, b] = hexValue.match(/\w\w/g).map(x => parseInt(x, 16));
