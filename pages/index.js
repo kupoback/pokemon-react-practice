@@ -12,7 +12,7 @@ export default function Home({pokemon}) {
 
 	const randomPokemon = (e) => {
 		e.preventDefault();
-		setShufflePokemon(shufflePokemon.sort(() => Math.random() - 0.5).slice(0,6));
+		setShufflePokemon(pokemon.sort(() => Math.random() - 0.5).slice(0,6));
 		setShuffle(true);
 	}	
 

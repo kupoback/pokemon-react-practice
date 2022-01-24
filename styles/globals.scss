@@ -10,6 +10,12 @@
 	--gray: #f7f7f7;
 	--blue: #6493eb;
 	--border-gray: #e0e0e0;
+
+	// Map through the type names, and match it to the type color. My spaghetti
+	@each $type in $type-names {
+		$i: index($type-names, $type);
+		--type-#{$type}: #{nth($types, $i)};
+	}
 }
 
 *,
@@ -19,6 +25,7 @@
 	-moz-box-sizing: inherit;
 	box-sizing: inherit;
 }
+
 
 html,
 body {

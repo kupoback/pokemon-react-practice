@@ -1,4 +1,6 @@
 import "../styles/globals.scss";
+import "../styles/TypeColors.scss";
+
 import App from "next/app";
 import Layout from "../components/Layout";
 

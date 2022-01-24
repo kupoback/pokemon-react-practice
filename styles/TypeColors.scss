@@ -1,0 +1,23 @@
+@import "common/common";
+
+@for $i from 1 through length($type-names) {
+    .type {
+        &__#{nth($type-names, $i)} {
+            &__font {
+                color: #{nth($type-names, $i)};
+            }
+            &__background {
+                background-color: #{nth($type-names, $i)};
+            }
+            &__border {
+                border-color: #{nth($type-names, $i)};
+            }
+        }
+    }
+    .card {
+        &__#{nth($type-names, $i)} {
+			background-color: #{nth($types, $i)};
+			border-color: #{nth($types, $i)};
+        }
+    }
+}
